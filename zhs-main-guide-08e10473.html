@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界杯 · 简明知识库 · 赛事指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fce4b3 0%, #f9c78a 40%, #efb077 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1.5rem;
+            line-height: 1.7;
+            color: #2c2b28;
+        }
+
+        .page-wrap {
+            max-width: 1120px;
+            width: 100%;
+        }
+
+        /* 目录感网格布局 */
+        .grid-directory {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin: 2.2rem 0 2.8rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(2px);
+            border-radius: 28px;
+            padding: 1.8rem 1.6rem 2rem;
+            box-shadow: 0 12px 28px -8px rgba(170, 100, 40, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.25s ease;
+            border: 1px solid rgba(255, 235, 200, 0.6);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 32px -12px rgba(150, 80, 30, 0.3);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            color: #7f4f2a;
+            border-left: 5px solid #e3914b;
+            padding-left: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            font-size: 0.98rem;
+            color: #3f3b34;
+            margin-bottom: 0.8rem;
+        }
+
+        .card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #eeb582;
+            color: #422b17;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            letter-spacing: 0.04em;
+            margin-right: 0.4rem;
+            text-transform: uppercase;
+        }
+
+        /* hero 区 */
+        .hero {
+            text-align: center;
+            padding: 1.2rem 0 0.6rem;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 650;
+            color: #4c321c;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            background: linear-gradient(to right, #5c381e, #9f6e3d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subhead {
+            font-size: 1.1rem;
+            color: #5a4330;
+            background: rgba(255, 242, 220, 0.5);
+            display: inline-block;
+            padding: 0.2rem 2rem;
+            border-radius: 40px;
+            margin-top: 0.5rem;
+            backdrop-filter: blur(2px);
+        }
+
+        .divider-light {
+            width: 80px;
+            height: 3px;
+            background: #dba26b;
+            margin: 1.4rem auto 2rem;
+            border-radius: 10px;
+        }
+
+        /* 说明区 + 提示区组合 */
+        .intro-notice {
+            background: rgba(255, 250, 240, 0.75);
+            backdrop-filter: blur(3px);
+            border-radius: 30px;
+            padding: 1.8rem 2.2rem;
+            margin: 1.8rem 0 2.2rem;
+            border: 1px solid #eddcc6;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .intro-block {
+            flex: 2;
+            min-width: 220px;
+        }
+
+        .intro-block p {
+            margin-bottom: 1rem;
+        }
+
+        .notice-block {
+            flex: 1.2;
+            min-width: 180px;
+            background: #f7e1c9;
+            border-radius: 24px;
+            padding: 1.2rem 1.5rem;
+            border-left: 4px solid #b97942;
+        }
+
+        .notice-block h4 {
+            font-size: 1.05rem;
+            color: #5c371b;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .notice-block ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .notice-block li {
+            padding: 0.25rem 0;
+            font-size: 0.94rem;
+            color: #3a2f24;
+            position: relative;
+            padding-left: 1.3rem;
+        }
+
+        .notice-block li::before {
+            content: "•";
+            color: #b0682e;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.3rem;
+        }
+
+        .faq-mini {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            margin: 2.2rem 0;
+            backdrop-filter: blur(2px);
+        }
+
+        .faq-mini h3 {
+            font-size: 1.4rem;
+            color: #694d2e;
+            margin-bottom: 1.2rem;
+            font-weight: 550;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border-bottom: 1px dashed #dfc7af;
+            padding-bottom: 0.8rem;
+        }
+
+        .faq-item strong {
+            color: #7a4f28;
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .faq-item p {
+            font-size: 0.95rem;
+            color: #3a332b;
+        }
+
+        .btn-link {
+            display: inline-block;
+            background: #f5ebdd;
+            border: 1px solid #dab286;
+            border-radius: 60px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #4f321b;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-link:hover {
+            background: #e6c9aa;
+            border-color: #b87d48;
+            color: #2f1d0d;
+        }
+
+        .inline-link {
+            color: #8f5b2b;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #dba875;
+            transition: 0.15s;
+        }
+
+        .inline-link:hover {
+            color: #623f1c;
+            border-bottom-color: #623f1c;
+        }
+
+        .related-section {
+            background: rgba(255, 248, 235, 0.6);
+            border-radius: 30px;
+            padding: 1.5rem 2rem;
+            margin: 1.8rem 0 2rem;
+            backdrop-filter: blur(2px);
+        }
+
+        .related-section h4 {
+            font-size: 1.2rem;
+            color: #5b3d20;
+            margin-bottom: 0.6rem;
+        }
+
+        .related-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 0.6rem;
+            margin-top: 0.8rem;
+        }
+
+        .related-tags span {
+            background: #f0dac2;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #3f2c19;
+            font-weight: 500;
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #4a3f34;
+            border-top: 1px solid #e3cbb2;
+            padding-top: 1.5rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1.2rem 0.9rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .intro-notice {
+                padding: 1.2rem 1.2rem;
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+            .card {
+                padding: 1.4rem;
+            }
+            .faq-mini {
+                padding: 1.2rem;
+            }
+            .related-section {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrap">
+        <!-- hero -->
+        <div class="hero">
+            <h1>⚽ 世界杯知识库</h1>
+            <div class="subhead">简明指南 · 赛事背景 · 观赛提醒</div>
+            <div class="divider-light"></div>
+        </div>
+
+        <!-- 说明区 + 提示区 -->
+        <div class="intro-notice">
+            <div class="intro-block">
+                <p>世界杯是全球最具影响力的足球赛事，自1930年首届以来，每四年举办一届。这里汇集了赛事结构、历史经典、球队档案与最新动态，帮助你系统了解这项运动的最高舞台。</p>
+                <p>无论是资深球迷还是新晋关注者，都可以从下面的目录卡片快速定位感兴趣的内容。此外，你随时可以前往 <a href="https://zhs-main-shijiebei.com" class="inline-link">世界杯</a> 主页获取更完整的资料与实时信息。</p>
+                <p style="font-size:0.9rem; color:#6a5540;">⏺ 本页作为入口索引，所有信息均以官方渠道为准。</p>
+            </div>
+            <div class="notice-block">
+                <h4>⚠️ 访问提醒</h4>
+                <ul>
+                    <li>赛事期间请认准官方转播平台</li>
+                    <li>比分数据延迟以现场为准</li>
+                    <li>警惕非官方票务及虚假链接</li>
+                    <li>部分历史数据可能存在修订</li>
+                </ul>
+                <div style="margin-top:0.8rem; background:#ebd1b6; border-radius:20px; padding:0.4rem 0.8rem; font-size:0.8rem;">
+                    💡 建议通过 <a href="https://zhs-main-shijiebei.com" class="inline-link" style="font-weight:600;">世界杯</a> 信息页核实关键日期。
+                </div>
+            </div>
+        </div>
+
+        <!-- 目录感布局：四个卡片 -->
+        <div class="grid-directory">
+            <div class="card">
+                <h3>🏆 赛事沿革</h3>
+                <p>从乌拉圭到卡塔尔，历届东道主与冠军脉络。了解奖杯传承、赛制演变与经典决赛。早期赛事仅有13支队伍，如今已扩军至32支（2026年起48支）。</p>
+                <p><span class="tag">历史</span><span class="tag">纪录</span></p>
+            </div>
+            <div class="card">
+                <h3>📋 球队与球星</h3>
+                <p>巴西五冠领跑，德国、意大利、阿根廷紧随其后。历代巨星：贝利、马拉多纳、齐达内、梅西、姆巴佩…… 每届都有新的传奇诞生。</p>
+                <p><span class="tag">档案</span><span class="tag">金靴</span></p>
+            </div>
+            <div class="card">
+                <h3>🧭 赛程与场馆</h3>
+                <p>小组赛、淘汰赛、决赛阶段详细时间表。主办城市与体育场信息，包括容量、方位、当地交通。可结合日历规划观赛。</p>
+                <p><span class="tag">日程</span><span class="tag">地图</span></p>
+            </div>
+            <div class="card">
+                <h3>📊 数据与统计</h3>
+                <p>历史进球榜、助攻榜、出场纪录、最大比分、冷门指数…… 以数据和图表呈现赛事背后的数字故事。</p>
+                <p><span class="tag">统计</span><span class="tag">排名</span></p>
+            </div>
+        </div>
+
+        <!-- FAQ 摘要区 -->
+        <div class="faq-mini">
+            <h3>❓ 常见疑问摘要</h3>
+            <div class="faq-item">
+                <strong>Q：如何第一时间获取下一届世界杯信息？</strong>
+                <p>可收藏 <a href="https://zhs-main-shijiebei.com" class="inline-link">世界杯</a> 信息聚合页，申办结果、预选赛抽签、官方会徽发布等动态都会及时更新。</p>
+            </div>
+            <div class="faq-item">
+                <strong>Q：哪里可以查找历史比赛记录？</strong>
+                <p>知识库中“数据与统计”卡片收录了历届完整赛果，包括小组积分、淘汰赛对阵及决赛详情。</p>
+            </div>
+            <div class="faq-item" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+                <strong>Q：赛事规则近年有哪些调整？</strong>
+                <p>例如引入VAR（视频助理裁判）、5次换人名额、补时精确计时等。具体修订年份请参考官方规则文档。</p>
+            </div>
+        </div>
+
+        <!-- 相关信息区 -->
+        <div class="related-section">
+            <h4>🔗 相关信息索引</h4>
+            <p style="font-size:0.94rem; color:#3b332b;">以下分类可帮助你进一步扩展知识面：</p>
+            <div class="related-tags">
+                <span>历届金球奖得主</span>
+                <span>经典逆转战役</span>
+                <span>东道主成绩回顾</span>
+                <span>世界杯主题曲</span>
+                <span>吉祥物演变</span>
+                <span>裁判执法记录</span>
+                <span>扩军计划</span>
+                <span>女足世界杯</span>
+                <span>青年梯队</span>
+            </div>
+            <p style="margin-top:1rem; font-size:0.9rem; background:#f4e4d2; padding:0.5rem 1rem; border-radius:40px; display:inline-block;">📌 核心参考：<a href="https://zhs-main-shijiebei.com" class="inline-link">世界杯</a> 知识总站</p>
+        </div>
+
+        <footer>
+            <p>内容仅供学习参考 · 数据可能存在更新延迟 · 请以官方发布为准</p>
+            <p style="margin-top:0.3rem;">© 世界杯知识库 · 非官方 · 公益索引</p>
+        </footer>
+    </div>
+</body>
+</html>
